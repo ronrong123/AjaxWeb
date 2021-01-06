@@ -5,6 +5,7 @@ function showPage() {
 	console.log(data);
 	let tableTag = document.createElement('table');
 	tableTag.setAttribute('border', '1');
+	tableTag.setAttribute('id', 'tdl');
 
 	// title tr
 	// data tr => [배열]
