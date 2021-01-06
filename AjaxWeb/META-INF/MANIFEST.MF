@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: AjaxWeb
+Bundle-SymbolicName: AjaxWeb
+Bundle-Version: 1.0.0.qualifier
+Export-Package: common,
+ common.board
