@@ -1,4 +1,4 @@
-package common;
+package common.board;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/addEmp")
-public class PutEmpServlet extends HttpServlet {
+import common.EmpDAO;
+import common.EmployeeVO;
+ 
+@WebServlet("/upEmp")
+public class updateEmp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public PutEmpServlet() {
+    public updateEmp() {
         super();
     }
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		String eid = request.getParameter("eid");
 		String fName = request.getParameter("fName");
 		String lName = request.getParameter("lName");
 		String email = request.getParameter("email");
@@ -25,7 +29,12 @@ public class PutEmpServlet extends HttpServlet {
 		String hireDate = request.getParameter("hireDate");
 		String jobId = request.getParameter("jobId");
 		
+		System.out.println(hireDate);
+		
+		int employeeId = Integer.parseInt(eid);
+		
 		EmployeeVO vo = new EmployeeVO();
+		vo.setEmployeeId(employeeId);
 		vo.setFirstName(fName);
 		vo.setLastName(lName);
 		vo.setEmail(email);
@@ -34,25 +43,21 @@ public class PutEmpServlet extends HttpServlet {
 		vo.setJobId(jobId);
 		
 		EmpDAO dao =new EmpDAO();
-		EmployeeVO v = dao.insertEmp(vo);
+		EmployeeVO v = dao.updateEmp(vo);
 		String result = "<result>";
-		result += "<empId>" + v.getEmployeeId() + "</empId>";
+		result += "<eid>" + v.getEmployeeId() + "</eid>";
 		result += "<fName>" + v.getFirstName() + "</fName>";
 		result += "<lName>" + v.getLastName() + "</lName>";
 		result += "<email>" + v.getEmail() + "</email>";
 		result += "<pNumber>" + v.getPhoneNumber() + "</pNumber>";
 		result += "<hDate>" + v.getHireDate() + "</hDate>";
 		result += "<jId>" + v.getJobId() + "</jId>";
-		result += "<salary>" + v.getSalary() + "</salary>";
 		result += "</result>";
 		
 		response.getWriter().append(result);
-			
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
