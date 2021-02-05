@@ -59,8 +59,33 @@ public class BoardDAO {
 		return cnt ==1 ? true:false;
 	}
 	
+	public BoardVO updateBrd(BoardVO vo) {
+		String sql = "update boards set title=?, content=?, writer=?,creation_date=sysdate where board_no=?";
+		int r=0;
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getTitle());
+			psmt.setString(2, vo.getContent());
+			psmt.setString(3, vo.getWriter());
+			psmt.setInt(4, vo.getBoardNo());
+			
+			r = psmt.executeUpdate();
+			System.out.println(r+"건 수정됨.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return vo;
+	}
 	public List<BoardVO> getBoardList(){
-		String sql ="select * from boards";
+		String sql ="select * from boards order by 1 asc";
 		List<BoardVO> list = new ArrayList<>();
 		try {
 			PreparedStatement psmt = conn.prepareStatement(sql);
@@ -87,5 +112,21 @@ public class BoardDAO {
 			}
 		}
 		return list;
+	}
+	public boolean deleteBoard(BoardVO vo) {
+		String sql = "delete from boards where board_no =?";
+		int r =0;
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, vo.getBoardNo());
+			
+			r = psmt.executeUpdate();
+			System.out.println(r + "건 삭제됨.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return r==1?true:false;
+		
 	}
 }

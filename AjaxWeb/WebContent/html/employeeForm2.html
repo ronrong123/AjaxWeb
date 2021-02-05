@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="showPage2.js"></script>
+<script src="../js/showPage2.js"></script>
 </head>
 <body>
 	<table>
@@ -47,8 +47,9 @@
 		
 		let url = '../addEmp?fName='+fName +'&lName='+lName+'&email='+email+'&pNumber='+pNumber+'&jobId='+jobId;
 		let saveReq = new XMLHttpRequest();
-		saveReq.open('get', url);
-		saveReq.send();
+		saveReq.open('post', url);
+		saveReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		saveReq.send(url);
 		saveReq.onload = function(){
 			console.log(saveReq.responseXML);
 			let doc = saveReq.responseXML;
@@ -108,7 +109,6 @@
 			for(let i=0;i<result[0].childNodes.length;i++){
 				let val = result[0].childNodes[i].firstChild.nodeValue;
 				document.getElementById('emp_'+eid).childNodes[i].firstChild.nodeValue = val;
-
 			}
 		}
 	

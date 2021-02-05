@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="show"></div>
+	<script>
+		let json = {
+				"name":"John",
+				"age":30,
+				"cars":[ "Ford", "BMW", "Fiat" ]
+		}		
+		/* let jsonObj = JSON.parse(json); */
+		console.log(json.cars[0]);
+		
+		let xhtp = new XMLHttpRequest(); //오브젝트를 하나 만들고 변수에 다음
+		xhtp.open('get','../empListJson'); //서버에있는 파일 요청
+		xhtp.send();
+		xhtp.onload = function(){
+			//요청이 끝나면 function()실행
+			let data = xhtp.response;// response: 기본 객체가 응답 정보와 관련해서 제공하는 기능?
+			let obj = JSON.parse(data);
+			
+			/* console.log(JSON.parse(data)); //parse: JSON에 들어있는 기능?으로 문자열 오브젝트들을 자바스크립트의 오브젝트 타입으로 변경해줌 */
+			for(let i=0;i<obj.length;i++){
+				console.log(obj[i].id, obj[i].firstName, obj[i].lastName, obj[i].email, obj[i].phoneNumber, obj[i].hireDate, obj[i].jobId, obj[i].salary);
+				let ul = document.createElement('ul');
+				document.getElementById('show').appendChild(ul);
+				let val = obj[i].id + ',' + obj[i].firstName +',' + obj[i].lastName + ',' +  obj[i].email+',' +  obj[i].phoneNumber+','+ obj[i].hireDate +',' + obj[i].jobId +',' + obj[i].salary;
+				let tNode = document.createTextNode(val);
+
+				let li = document.createElement('li');
+				li.appendChild(tNode);
+				ul.appendChild(li);
+			}					
+		}
+		
+	</script>
+</body>
+</html>

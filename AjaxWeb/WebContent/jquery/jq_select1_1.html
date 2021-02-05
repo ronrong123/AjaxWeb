@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(function(){
+            // html : innerHTML값에 속성을 주는것
+            $(document).ready(function(){
+                $('p').html('hello');
+                let pTag = $('<p/>'); //p테그 만들기
+                $('#p').append(pTag).attr('id','first'); //$('#p').append($('<p id ="first"/>'));한번에 적는 방법(안에 ID넣기도 가능)  
+                //document가 준비된 상태에서 시작하는것(맨 마지막에 실행됨)
+            });
+            $("*").css('border','1px solid blue');
+            $("#tit").css('background','#ff0').css('border','2px  solid #f00');
+            $(".tit").css('background', '#ff0').css('border', '3px dashed #f00');
+            $('h4').css('background', '#0ff').css('border', '2px dashed #f00');
+            $('#tit3, h1').css('background', '#0ff').css('border', '2px dashed #f00');
+            $('h1.tit').css('background', 'pink').css('border', '5px dashed #ffcc00').css('color','gray');
+            $('li.ch').parent().css('border', '2px solid #ffcc00');
+            $('li').css('border','none');
+            $('li.ch').next().css('color', 'orange');
+            $('#wrap li').css({
+                'background':'pink',
+                'border':'2px dotted #ffcc00',
+                'color':'skyblue'
+            });
+            $('.ch1').prev().css('color', 'red');
+            $('.ch1 + li').css('background', 'gray');
+            $('.ch').nextAll().css('color', 'orange');
+            $('.si').siblings().css('background', 'lightblue');
+            
+            let style_1 = {
+                'background':'#05F6FA',
+                'color':'#F800CA'
+            }
+            let style_2 = {
+                'background':'#F800CA',
+                'color':'#05F6FA'
+            }
+            $('#un').prevUntil().css(style_1);
+            $('#un').nextUntil().css(style_2);
+            $('#un').css('list-style', 'none').css('font-size','30px').css('font-weight',"900").css('color', '#01A7A7');
+            $('#un').closest('ul').css('border', '5px dashed #ffcc00').css('border-radius', '10px');
+        })
+    </script>   
+</head>
+<body>
+    <div id="p"></div>
+    <p></p>
+    <h1>제이쿼리</h1>
+    <h2 id="tit">선택자</h2>
+    <h2 class="tit">선택자2</h2>
+    <h3>직접 선택자</h3>
+    <h3 id="tit3">직접 선택자</h3>
+    <h4>선택자</h4>
+    <h1 class="tit">선택자</h1>
+    <ul>
+        <li class="ch">자식1</li>
+        <li class="ch1">자식2</li>
+        <li>자식3</li>
+    </ul>
+    <ul id="wrap">
+        <li>1</li>
+        <li class="si">2</li>
+        <li>3</li>
+    </ul>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li id="un">4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+</body>
+</html>

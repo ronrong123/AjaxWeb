@@ -53,6 +53,9 @@ function titleRow(result) {
 		tdTag.appendChild(textNode);
 		trTag.appendChild(tdTag);
 	}
+	let th = document.createElement('th');
+	th.innerHTML = '처리';
+	trTag.appendChild(th);
 	return trTag;
 }
 

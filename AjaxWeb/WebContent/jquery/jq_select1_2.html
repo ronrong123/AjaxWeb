@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script>
+        let persons = [];
+        persons.push('Hong');
+        persons.push('Hwang');
+        persons.push('Park');
+
+        $(document).ready(function(){
+            let ulTag = $('<ul />').attr('id','main');
+            $.each(persons, function(a,b){
+                //each (= forEach): 반복처리해주는 매소드
+                //each: 첫번째가 index 두번째가 요소값
+                console.log(a,b);
+                ulTag.append($('<li />').html(b));
+            })
+            console.log(ulTag);
+            $('body').append(ulTag);
+            // persons.forEach(function(a,b,c){
+            //     console.log(a,b,c);
+            // })
+
+            let tableTag = $('<table />').attr('border', '1');
+            $.each(persons, function(a,b){
+                let trTag = $('<tr />');
+                $(trTag).mouseover(function(){
+                    $(this).css('background', '#ffcc00');
+                });
+                $(trTag).mouseout(function(){
+                    $(this).css('background', 'none');
+                })
+                let tdTag = $('<td/>').html(b);
+                trTag.append(tdTag);
+                let btn = $('<button />').html('삭제');
+                $(btn).click(function(){
+                    $(this).parent().parent().remove();
+                    //parent():부모속성 (btn의 부모td의 부모tr을 삭제)
+                    alert('warnig'); //팝업창 띄워줌
+                });
+                
+                trTag.append($('<td />').append(btn));
+                tableTag.append(trTag);
+            })
+            $('body').append(tableTag);
+        });
+        
+    </script>
+</head>
+<body>
+</body>
+</html>

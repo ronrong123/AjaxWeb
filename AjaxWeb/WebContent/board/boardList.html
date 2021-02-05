@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/showPage.js"></script>
+</head>
+<body>
+	<!-- 화면에 게시판데이터 table형식으로 화면에 보여주도록. -->
+	<!-- DAO, Servlet, ajax호출(XMLHttpRequest() -->
+	<input type="hidden" id="bNo" name = "bNo" >
+	<label for="title">제목: </label><input type="text"  id="title" name="title"><br>
+	<label for="content">내용: </label><input type="text" id="content" name="content"><br>
+	<label for="writer">작성자: </label><input type="text" id="writer" name="writer"><br>
+	<input type="button" id="btn" value="저장" onclick="savaBtn()">
+	<input type="button" value="수정" onclick="updateBtn()">
+	<div id="show"></div>
+	<script>
+	function updateBtn(){
+		console.log(this);
+		let bNo = document.getElementById('bNo').value;
+		let title = document.getElementById('title').value;
+		let content = document.getElementById('content').value;
+		let writer = document.getElementById('writer').value;
+		let date = new Date();
+		let url = '../upBrd?bNo='+bNo+'&title='+title+'&content='+content+'&writer='+writer+'&date='+ date.toLocaleString();
+		let upReq = new XMLHttpRequest();
+		upReq.open('get', url);
+		upReq.send();
+		upReq.onload = function(){
+			console.log(upReq.responseXML);
+			let doc = upReq.responseXML;
+			let result = doc.getElementsByTagName('result');
+			for(let i=0;i<result[0].childNodes.length;i++){
+				let val = result[0].childNodes[i].firstChild.nodeValue;
+				document.getElementById('bd_'+bNo).childNodes[i].firstChild.nodeValue = val;
+			}
+		}
+	}
+	document.getElementById('btn').onclick = function(){
+		let title = document.querySelectorAll('input[name="title"]')[0].value;
+		let content = document.getElementById('content').value;
+		let writer = document.getElementsByTagName('input')[2].value;
+		let xhtp = new XMLHttpRequest();
+		location.href="boardList.html";
+		let url = '../insertBoard?title=' + title +'&content=' + content + '&writer=' + writer;
+		xhtp.open('get', url);
+		xhtp.send();
+		xhtp.onload = function(){
+			console.log(xhtp.responseText);
+		}
+	};
+	let xhtp = new XMLHttpRequest();
+	xhtp.open('get', '../boardList');
+	xhtp.send();
+	xhtp.onload = showPage;
+	</script>
+</body>
+</html>
